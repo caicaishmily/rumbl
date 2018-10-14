@@ -7,6 +7,7 @@ defmodule RumblWeb.Router do
     plug :fetch_flash
     plug :protect_from_forgery
     plug :put_secure_browser_headers
+    plug RumblWeb.Auth
   end
 
   pipeline :api do
@@ -16,6 +17,7 @@ defmodule RumblWeb.Router do
   scope "/", RumblWeb do
     pipe_through :browser # Use the default browser stack
     resources "/users", UserController, only: [:index, :show, :new, :create]
+    resources "/session", SessionController, only: [:delete, :new, :create]
     # get "/users/:id", UserController, :show
     get "/", PageController, :index
   end
