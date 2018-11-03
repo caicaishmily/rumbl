@@ -9,6 +9,12 @@ defmodule Rumbl.Multimedia do
   alias Rumbl.Multimedia.Video
   alias Rumbl.Accounts
 
+  def list_videos do
+    Video
+    |> Repo.all()
+    |> preload_user()
+  end
+
   @doc """
   Returns the list of videos.
 
@@ -18,8 +24,11 @@ defmodule Rumbl.Multimedia do
       [%Video{}, ...]
 
   """
-  def list_videos do
-    Repo.all(Video)
+  def list_user_videos(%Accounts.User{} = user) do
+    Video
+    |> user_videos_query(user)
+    |> Repo.all()
+    |> preload_user()
   end
 
   @doc """
@@ -36,7 +45,22 @@ defmodule Rumbl.Multimedia do
       ** (Ecto.NoResultsError)
 
   """
-  def get_video!(id), do: Repo.get!(Video, id)
+  def get_user_video!(%Accounts.User{} = user, id) do
+    from(v in Video, where: v.id == ^id)
+    |> user_videos_query(user)
+    |> Repo.one!()
+    |> preload_user()
+  end
+
+  def get_video!(id), do: preload_user(Repo.get!(Video, id))
+
+  defp preload_user(video_or_videos) do
+    Repo.preload(video_or_videos, :user)
+  end
+
+  defp user_videos_query(query, %Accounts.User{id: user_id}) do
+    from(v in query, where: v.user_id == ^user_id)
+  end
 
   @doc """
   Creates a video.
@@ -100,14 +124,14 @@ defmodule Rumbl.Multimedia do
       %Ecto.Changeset{source: %Video{}}
 
   """
-  def change_video(%Accounts.User = user, %Video{} = video) do
+  def change_video(%Accounts.User{} = user, %Video{} = video) do
     video
-    |> Video.changeset(video, %{})
+    |> Video.changeset(%{})
     |> put_user(user)
   end
 
   defp put_user(changeset, user) do
     Ecto.Changeset.put_assoc(changeset, :user, user)
   end
-  
+
 end
