@@ -2,7 +2,7 @@
   <div class="alert alert-danger">
     <p>Oops, something went wrong.</p>
   </div>
-<%= end %>
+<% end %>
 
 <h1>New User</h1>
 <%= form_for @changeset, Routes.user_path(@conn, :create), fn f -> %>
