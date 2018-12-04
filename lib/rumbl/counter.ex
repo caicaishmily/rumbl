@@ -9,7 +9,7 @@ defmodule Rumbl.Counter do
     send(pid, {:val, self(), ref})
 
     receive do
-      {^ref, val} ->
+      {^ref, val} -> val
       after
         timeout -> exit(:timeout)
     end

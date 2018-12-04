@@ -26,7 +26,7 @@ defmodule RumblWeb.VideoChannel do
       {:ok, annotation} ->
         broadcast!(socket, "new_annotation", %{
           id: annotation.id,
-          user: %Rumbl.UserView.render("user.json", %{user: user}),
+          user: RumblWeb.UserView.render("user.json", %{user: user}),
           body: annotation.body,
           at: annotation.at
         })
