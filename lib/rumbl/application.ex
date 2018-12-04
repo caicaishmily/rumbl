@@ -14,6 +14,7 @@ defmodule Rumbl.Application do
       RumblWeb.Endpoint,
       # Starts a worker by calling: Rumbl.Worker.start_link(arg)
       # {Rumbl.Worker, arg},
+      {Rumbl.Counter, 5}
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html
