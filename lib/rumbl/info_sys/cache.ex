@@ -1,6 +1,8 @@
 defmodule Rumbl.InfoSys.Cache do
   use GenServer
 
+  @clear_interval :timer.seconds(60)
+
   def start_link(opts) do
     opts = Keyword.put_new(opts, :name, __MODULE__)
 
@@ -20,7 +22,20 @@ defmodule Rumbl.InfoSys.Cache do
   end
 
   def init(opts) do
-    {:ok, %{table: new_table(opts[:name])}}
+    state = %{interval: opts[:clear_interval] || @clear_interval,
+      timer: nil,
+      table: new_table(opts[:name])
+    }
+    {:ok, schedule_clear(state)}
+  end
+
+  def handle_info(:clear, state) do
+    :ets.delete_all_objects(state.table)
+    {:noreply, schedule_clear(state)}
+  end
+
+  def schedule_clear(state) do
+    %{state | timer: Process.send_after(self(), :clear, state.interval)}
   end
 
   defp new_table(name) do
