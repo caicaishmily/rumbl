@@ -17,7 +17,7 @@ defmodule Rumbl.InfoSys do
   end
 
   defp async_query(backend, query, opts) do
-    Task.Supervisor.async_nolink(InfoSys.TaskSuperisor,
+    Task.Supervisor.async_nolink(InfoSys.TaskSupervisor,
     backend, :compute, [query, opts], shutdown: :brutal_kill)
   end
 end
