@@ -6,7 +6,10 @@
 # We make no guarantees that this code is fit for any purpose.
 # Visit http://www.pragmaticprogrammer.com/titles/phoenix14 for more book information.
 #---
-use Mix.Config
+defmodule RumblWeb.PageController do
+  use RumblWeb, :controller
 
-# Print only warnings and errors during test
-config :logger, level: :warn
+  def index(conn, _params) do
+    render(conn, "index.html")
+  end
+end

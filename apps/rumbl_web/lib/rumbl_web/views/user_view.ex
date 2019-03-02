@@ -6,7 +6,17 @@
 # We make no guarantees that this code is fit for any purpose.
 # Visit http://www.pragmaticprogrammer.com/titles/phoenix14 for more book information.
 #---
-use Mix.Config
+defmodule RumblWeb.UserView do
+  use RumblWeb, :view
+  alias Rumbl.Accounts
 
-# Print only warnings and errors during test
-config :logger, level: :warn
+  def first_name(%Accounts.User{name: name}) do
+    name
+    |> String.split(" ")
+    |> Enum.at(0)
+  end
+
+  def render("user.json", %{user: user}) do
+    %{id: user.id, username: user.username}
+  end
+end

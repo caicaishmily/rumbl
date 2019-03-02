@@ -6,7 +6,8 @@
 # We make no guarantees that this code is fit for any purpose.
 # Visit http://www.pragmaticprogrammer.com/titles/phoenix14 for more book information.
 #---
-use Mix.Config
-
-# Print only warnings and errors during test
-config :logger, level: :warn
+[
+  import_deps: [:ecto],
+  inputs: ["*.{ex,exs}", "priv/*/seeds.exs", "{config,lib,test}/**/*.{ex,exs}"],
+  subdirectories: ["priv/*/migrations"]
+]

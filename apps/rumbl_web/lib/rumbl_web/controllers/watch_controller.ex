@@ -6,7 +6,13 @@
 # We make no guarantees that this code is fit for any purpose.
 # Visit http://www.pragmaticprogrammer.com/titles/phoenix14 for more book information.
 #---
-use Mix.Config
+defmodule RumblWeb.WatchController do
+  use RumblWeb, :controller
 
-# Print only warnings and errors during test
-config :logger, level: :warn
+  alias Rumbl.Multimedia
+
+  def show(conn, %{"id" => id}) do
+    video = Multimedia.get_video!(id)
+    render(conn, "show.html", video: video)
+  end
+end

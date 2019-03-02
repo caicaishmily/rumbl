@@ -6,7 +6,13 @@
 # We make no guarantees that this code is fit for any purpose.
 # Visit http://www.pragmaticprogrammer.com/titles/phoenix14 for more book information.
 #---
+# Since configuration is shared in umbrella projects, this file
+# should only configure the :rumbl application itself
+# and only for organization purposes. All other config goes to
+# the umbrella root.
 use Mix.Config
 
-# Print only warnings and errors during test
-config :logger, level: :warn
+config :rumbl,
+  ecto_repos: [Rumbl.Repo]
+
+import_config "#{Mix.env()}.exs"

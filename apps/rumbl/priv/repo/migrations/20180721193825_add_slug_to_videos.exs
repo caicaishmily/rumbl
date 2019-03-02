@@ -6,7 +6,12 @@
 # We make no guarantees that this code is fit for any purpose.
 # Visit http://www.pragmaticprogrammer.com/titles/phoenix14 for more book information.
 #---
-use Mix.Config
+defmodule Rumbl.Repo.Migrations.AddSlugToVideos do
+  use Ecto.Migration
 
-# Print only warnings and errors during test
-config :logger, level: :warn
+  def change do
+    alter table(:videos) do
+      add :slug, :string
+    end
+  end
+end

@@ -6,7 +6,11 @@
 # We make no guarantees that this code is fit for any purpose.
 # Visit http://www.pragmaticprogrammer.com/titles/phoenix14 for more book information.
 #---
-use Mix.Config
+defmodule RumblWeb.PageControllerTest do
+  use RumblWeb.ConnCase
 
-# Print only warnings and errors during test
-config :logger, level: :warn
+  test "GET /", %{conn: conn} do
+    conn = get conn, "/"
+    assert html_response(conn, 200) =~ "Welcome to Rumbl.io!"
+  end
+end
