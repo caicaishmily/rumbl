@@ -6,7 +6,6 @@
 # We make no guarantees that this code is fit for any purpose.
 # Visit http://www.pragmaticprogrammer.com/titles/phoenix14 for more book information.
 #---
-use Mix.Config
-
-# Print only warnings and errors during test
-config :logger, level: :warn
+defmodule RumblWeb.PageViewTest do
+  use RumblWeb.ConnCase, async: true
+end

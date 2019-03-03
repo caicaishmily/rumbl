@@ -6,7 +6,12 @@
 # We make no guarantees that this code is fit for any purpose.
 # Visit http://www.pragmaticprogrammer.com/titles/phoenix14 for more book information.
 #---
-use Mix.Config
+defmodule Rumbl do
+  @moduledoc """
+  Rumbl keeps the contexts that define your domain
+  and business logic.
 
-# Print only warnings and errors during test
-config :logger, level: :warn
+  Contexts are also responsible for managing your data, regardless
+  if it comes from the database, an external API or others.
+  """
+end

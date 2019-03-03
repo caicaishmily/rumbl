@@ -6,7 +6,17 @@
 # We make no guarantees that this code is fit for any purpose.
 # Visit http://www.pragmaticprogrammer.com/titles/phoenix14 for more book information.
 #---
-use Mix.Config
+defmodule Rumbl.Repo.Migrations.CreateUsers do
+  use Ecto.Migration
 
-# Print only warnings and errors during test
-config :logger, level: :warn
+  def change do
+    create table(:users) do
+      add :name, :string
+      add :username, :string, null: false
+
+      timestamps()
+    end
+
+    create unique_index(:users, [:username])
+  end
+end

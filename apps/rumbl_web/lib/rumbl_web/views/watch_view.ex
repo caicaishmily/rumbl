@@ -6,7 +6,12 @@
 # We make no guarantees that this code is fit for any purpose.
 # Visit http://www.pragmaticprogrammer.com/titles/phoenix14 for more book information.
 #---
-use Mix.Config
+defmodule RumblWeb.WatchView do
+  use RumblWeb, :view
 
-# Print only warnings and errors during test
-config :logger, level: :warn
+  def player_id(video) do
+    ~r{^.*(?:youtu\.be/|\w+/|v=)(?<id>[^#&?]*)}
+    |> Regex.named_captures(video.url)
+    |> get_in(["id"])
+  end
+end

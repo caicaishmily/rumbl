@@ -6,7 +6,15 @@
 # We make no guarantees that this code is fit for any purpose.
 # Visit http://www.pragmaticprogrammer.com/titles/phoenix14 for more book information.
 #---
-use Mix.Config
+defmodule RumblWeb.AnnotationView do
+  use RumblWeb, :view
 
-# Print only warnings and errors during test
-config :logger, level: :warn
+  def render("annotation.json", %{annotation: annotation}) do
+    %{
+      id: annotation.id,
+      body: annotation.body,
+      at: annotation.at,
+      user: render_one(annotation.user, RumblWeb.UserView, "user.json")
+    }
+  end
+end

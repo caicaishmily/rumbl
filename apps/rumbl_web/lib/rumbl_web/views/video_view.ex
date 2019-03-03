@@ -6,7 +6,10 @@
 # We make no guarantees that this code is fit for any purpose.
 # Visit http://www.pragmaticprogrammer.com/titles/phoenix14 for more book information.
 #---
-use Mix.Config
+defmodule RumblWeb.VideoView do
+  use RumblWeb, :view
 
-# Print only warnings and errors during test
-config :logger, level: :warn
+  def category_select_options(categories) do
+    for category <- categories, do: {category.name, category.id}
+  end
+end

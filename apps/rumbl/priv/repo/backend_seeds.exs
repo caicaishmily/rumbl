@@ -6,7 +6,4 @@
 # We make no guarantees that this code is fit for any purpose.
 # Visit http://www.pragmaticprogrammer.com/titles/phoenix14 for more book information.
 #---
-use Mix.Config
-
-# Print only warnings and errors during test
-config :logger, level: :warn
+{:ok, _} = Rumbl.Accounts.create_user(%{name: "Wolfram", username: "wolfram"})

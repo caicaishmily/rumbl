@@ -6,7 +6,25 @@
 # We make no guarantees that this code is fit for any purpose.
 # Visit http://www.pragmaticprogrammer.com/titles/phoenix14 for more book information.
 #---
-use Mix.Config
+defmodule Rumbl.Multimedia.Category do
+  use Ecto.Schema
+  import Ecto.Changeset
+  import Ecto.Query
 
-# Print only warnings and errors during test
-config :logger, level: :warn
+  schema "categories" do
+    field :name, :string
+
+    timestamps()
+  end
+
+  @doc false
+  def changeset(category, attrs) do
+    category
+    |> cast(attrs, [:name])
+    |> validate_required([:name])
+  end
+
+  def alphabetical(query) do
+    from c in query, order_by: c.name
+  end
+end

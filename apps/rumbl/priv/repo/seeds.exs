@@ -6,7 +6,8 @@
 # We make no guarantees that this code is fit for any purpose.
 # Visit http://www.pragmaticprogrammer.com/titles/phoenix14 for more book information.
 #---
-use Mix.Config
+alias Rumbl.Multimedia
 
-# Print only warnings and errors during test
-config :logger, level: :warn
+for category <- ~w(Action Drama Romance Comedy Sci-fi) do
+  Multimedia.create_category(category)
+end

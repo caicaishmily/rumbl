@@ -6,7 +6,7 @@
 # We make no guarantees that this code is fit for any purpose.
 # Visit http://www.pragmaticprogrammer.com/titles/phoenix14 for more book information.
 #---
-use Mix.Config
-
-# Print only warnings and errors during test
-config :logger, level: :warn
+defmodule Rumbl.InfoSys.Backend do
+  @callback name() :: String.t
+  @callback compute(query :: String.t(), opts :: Keyword.t()) :: [Rumbl.InfoSys.Result.t()]
+end
