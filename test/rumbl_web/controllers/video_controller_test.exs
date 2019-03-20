@@ -8,7 +8,7 @@ defmodule RumblWeb.VideoControllerTest do
       conn = assign(conn, :current_user, user)
       {:ok, conn: conn, user: user}
     end
-    
+
 
     @tag login_as: "max"
 
@@ -16,7 +16,7 @@ defmodule RumblWeb.VideoControllerTest do
       user_video = video_fixture(user, title: "funny cats")
       other_video = video_fixture(user_fixture(username: "other", title: "another video"))
 
-      conn = get conn, video_path(conn, :index)
+      conn = get conn, Routes.video_path(conn, :index)
 
       assert html_response(conn, 200) =~ ~r/Listing videos/
       assert String.contains?(conn.resp_body, user_video.title)
@@ -28,7 +28,7 @@ defmodule RumblWeb.VideoControllerTest do
 
     @create_attrs %{url: "http://youtu.be", title: "vid", description: "a vid"}
     @invalid_attrs %{title: "invalid"}
-  
+
     defp video_count, do: Enum.count(Multimedia.list_videos())
 
     @tag login_as: "max"
@@ -44,11 +44,11 @@ defmodule RumblWeb.VideoControllerTest do
     end
 
     @tag login_as: "max"
-    test "does not create video and renders errors when invalid", %{conn, conn} do
+    test "does not create video and renders errors when invalid", %{conn: conn} do
       count_before = video_count()
       conn = post conn, Routes.video_path(conn, :create), video: @invalid_attrs
       assert html_response(conn, 200) =~ "check the errors"
-      assert video_count == count_before  
+      assert video_count == count_before
     end
 
   end
@@ -67,11 +67,11 @@ defmodule RumblWeb.VideoControllerTest do
       get(conn, Routes.video_path(conn, :edit, video))
     end
 
-    assert_error_sent, :not_found, fn -> 
+    assert_error_sent :not_found, fn ->
       get(conn, Routes.video_path(conn, :update, video, video: @create_attrs))
     end
 
-    assert_error_sent, :not_found, fn -> 
+    assert_error_sent :not_found, fn ->
       delete(conn, Routes.video_path(conn, :delete, video))
     end
   end

@@ -32,7 +32,7 @@ defmodule Rumbl.InfoSys.Wolfram do
   end
 
   defp url(input) do
-    "#{@base}?" <> URL.encode_query(appid: id(), input: input, format: "plaintext")
+    "#{@base}?" <> URI.encode_query(appid: id(), input: input, format: "plaintext")
   end
 
   defp id, do: Application.get_env(:rumbl, :wolfram)[:app_id]
